@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FirstAid AI - Your Personal Health Companion</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Main Container -->
+    <div id="app" class="app-container">
+        
+        <!-- Home Screen / Mode Selection -->
+        <div id="homeScreen" class="screen active">
+            <div class="status-bar">
+                <span class="status-indicator">
+                    <span class="status-dot active"></span>
+                    FIRSTAID AI ASSISTANT ACTIVE
+                </span>
+                <span class="secure-badge">
+                    🔒 Secure Connection
+                </span>
+            </div>
+
+            <div class="home-header">
+                <div class="app-logo">
+                    <div class="logo-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <rect width="32" height="32" rx="8" fill="#3B82F6"/>
+                            <path d="M16 8V24M10 16H22" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="app-title">FirstAid AI</h1>
+                        <p class="app-subtitle">Your personal health companion</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-content">
+                <div class="welcome-section">
+                    <div class="assistant-avatar">
+                        <div class="pulse-ring"></div>
+                        <div class="pulse-ring delay-1"></div>
+                        <div class="avatar-icon">
+                            <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+                                <path d="M30 5L32 18L30 31M30 31L18 28L30 31ZM30 31L42 28L30 31Z" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M20 35C20 35 22 40 30 40C38 40 40 35 40 35" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <h2 class="welcome-text">How can I help you today?</h2>
+                </div>
+
+                <div class="mode-buttons">
+                    <button class="mode-btn emergency-btn" onclick="navigateTo('emergencyScreen')">
+                        <div class="mode-icon emergency-icon">🚨</div>
+                        <div class="mode-content">
+                            <h3>Emergency Assistance</h3>
+                        </div>
+                    </button>
+
+                    <button class="mode-btn care-btn" onclick="navigateTo('dashboardScreen')">
+                        <div class="mode-icon care-icon">💚</div>
+                        <div class="mode-content">
+                            <h3>My Daily Care</h3>
+                        </div>
+                    </button>
+                </div>
+
+                <div class="doctor-note">
+                    <div class="note-icon">ℹ️</div>
+                    <div class="note-content">
+                        <h4>Doctor's Note</h4>
+                        <p>It looks like it's a great day for a short walk. Your hydration levels are tracking well for this afternoon.</p>
+                    </div>
+                </div>
+
+                <div class="quick-actions">
+                    <button class="quick-action-btn">
+                        <span class="action-icon">❄️</span>
+                        <span>SOS</span>
+                    </button>
+                    <button class="quick-action-btn">
+                        <span class="action-icon">🏥</span>
+                        <span>CARE</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Emergency Mode Screen -->
+        <div id="emergencyScreen" class="screen emergency-screen">
+            <div class="emergency-header">
+                <button class="back-btn" onclick="navigateTo('homeScreen')">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    Back
+                </button>
+                <h2>Emergency Assistance</h2>
+                <button class="call-emergency-btn">
+                    <span>📞</span> Call 911
+                </button>
+            </div>
+
+            <div class="emergency-content">
+                <div class="voice-control">
+                    <button class="voice-btn" id="voiceBtn">
+                        <div class="voice-icon">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                                <path d="M20 5V30M20 30C18 30 16 28 16 26V14C16 12 18 10 20 10C22 10 24 12 24 14V26C24 28 22 30 20 30Z" stroke="white" stroke-width="2"/>
+                                <path d="M12 22C12 26 15.5 30 20 30C24.5 30 28 26 28 22" stroke="white" stroke-width="2"/>
+                                <path d="M20 30V35M16 35H24" stroke="white" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <div class="voice-pulse"></div>
+                    </button>
+                    <p class="voice-instruction">Tap to describe the emergency</p>
+                    <p class="voice-hint">"Someone is choking" or "Chest pain"</p>
+                </div>
+
+                <div class="emergency-categories">
+                    <h3>Or select emergency type:</h3>
+                    <div class="category-grid">
+                        <button class="category-card" onclick="handleEmergency('accident')">
+                            <div class="category-icon">🚗</div>
+                            <span>Accident</span>
+                        </button>
+                        <button class="category-card" onclick="handleEmergency('heart')">
+                            <div class="category-icon">❤️</div>
+                            <span>Heart Problem</span>
+                        </button>
+                        <button class="category-card" onclick="handleEmergency('bleeding')">
+                            <div class="category-icon">🩸</div>
+                            <span>Bleeding</span>
+                        </button>
+                        <button class="category-card" onclick="handleEmergency('stroke')">
+                            <div class="category-icon">🧠</div>
+                            <span>Stroke</span>
+                        </button>
+                        <button class="category-card" onclick="handleEmergency('choking')">
+                            <div class="category-icon">😮</div>
+                            <span>Choking</span>
+                        </button>
+                        <button class="category-card" onclick="handleEmergency('burn')">
+                            <div class="category-icon">🔥</div>
+                            <span>Burn</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="guidanceSteps" class="guidance-steps hidden">
+                    <h3 class="guidance-title">Follow these steps carefully:</h3>
+                    <div id="stepsContainer" class="steps-container"></div>
+                    <button class="done-btn" onclick="navigateTo('homeScreen')">Done</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Screen -->
+        <div id="dashboardScreen" class="screen dashboard-screen">
+            <div class="dashboard-header">
+                <div class="header-top">
+                    <div class="logo-small">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <rect width="24" height="24" rx="6" fill="#3B82F6"/>
+                            <path d="M12 6V18M8 12H16" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <span>FirstAid AI</span>
+                    </div>
+                    <button class="emergency-header-btn" onclick="navigateTo('emergencyScreen')">
+                        ❄️ EMERGENCY
+                    </button>
+                    <div class="user-profile">
+                        <div class="avatar">AJ</div>
+                        <span>Alex Johnson</span>
+                    </div>
+                </div>
+
+                <h2 class="greeting">Good Morning, Alex</h2>
+                <p class="medication-alert">You have 2 medications due this morning.</p>
+
+                <div class="health-guidance-card">
+                    <div class="guidance-icon">💡</div>
+                    <div class="guidance-text">
+                        <h4>Need health guidance?</h4>
+                        <p>Ask CareAI about symptoms or medication side effects.</p>
+                    </div>
+                    <button class="ask-btn" onclick="navigateTo('aiAssistantScreen')">Ask Now</button>
+                </div>
+            </div>
+
+            <div class="dashboard-nav">
+                <button class="nav-item active">
+                    <span class="nav-icon">📊</span>
+                    Dashboard
+                </button>
+                <button class="nav-item" onclick="navigateTo('careReminderScreen')">
+                    <span class="nav-icon">🔔</span>
+                    Care Reminder
+                </button>
+                <button class="nav-item" onclick="navigateTo('aiAssistantScreen')">
+                    <span class="nav-icon">💬</span>
+                    CareAI Chat
+                </button>
+                <button class="nav-item" onclick="navigateTo('settingsScreen')">
+                    <span class="nav-icon">⚙️</span>
+                    Settings
+                </button>
+            </div>
+
+            <div class="dashboard-content">
+                <div class="section-header">
+                    <h3>
+                        <span class="section-icon">💊</span>
+                        Medicine Reminders
+                    </h3>
+                    <button class="view-all-btn">View All Schedule</button>
+                </div>
+
+                <div class="reminders-grid" id="medicineReminders">
+                    <div class="reminder-card">
+                        <div class="reminder-header">
+                            <div>
+                                <h4>Lisinopril</h4>
+                                <p class="reminder-detail">10mg Tablet • Blood Pressure</p>
+                            </div>
+                            <span class="status-badge due-now">DUE NOW</span>
+                        </div>
+                        <div class="reminder-time">
+                            🕐 8:00 AM
+                        </div>
+                        <div class="reminder-actions">
+                            <button class="action-btn taken-btn">✓ Taken</button>
+                            <button class="action-btn snooze-btn">Snooze</button>
+                        </div>
+                    </div>
+
+                    <div class="reminder-card">
+                        <div class="reminder-header">
+                            <div>
+                                <h4>Vitamin D3</h4>
+                                <p class="reminder-detail">2000 IU • Daily Supplement</p>
+                            </div>
+                            <span class="status-badge upcoming">UPCOMING</span>
+                        </div>
+                        <div class="reminder-time">
+                            🕐 12:00 PM
+                        </div>
+                        <div class="reminder-actions">
+                            <button class="action-btn later-btn">Take Later</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-header">
+                    <h3>
+                        <span class="section-icon">📅</span>
+                        Appointments
+                    </h3>
+                </div>
+
+                <div class="appointment-card">
+                    <div class="appointment-image">
+                        <img src="data:image/svg+xml,%3Csvg width='200' height='120' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='200' height='120' fill='%236B7280'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' fill='white' font-size='14' dy='.3em'%3ENEXT VISIT%3C/text%3E%3Ctext x='50%25' y='70%25' text-anchor='middle' fill='white' font-size='18' font-weight='bold' dy='.3em'%3EDr. Smith%3C/text%3E%3C/svg%3E" alt="Next Visit">
+                    </div>
+                    <div class="appointment-details">
+                        <div class="appointment-icon">🏥</div>
+                        <div class="appointment-info">
+                            <h4>General Checkup</h4>
+                            <p>Regular physical examination</p>
+                        </div>
+                    </div>
+                    <div class="appointment-meta">
+                        <div class="meta-item">
+                            <span class="meta-icon">📅</span>
+                            <span>Thursday, Oct 24th</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-icon">🕐</span>
+                            <span>2:30 PM (45 mins)</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-icon">📍</span>
+                            <span>City Medical Center, Suite 402</span>
+                        </div>
+                    </div>
+                    <div class="appointment-actions">
+                        <button class="direction-btn">Get Directions</button>
+                        <button class="reschedule-btn">Reschedule</button>
+                    </div>
+                </div>
+
+                <div class="daily-goal-card">
+                    <div class="goal-header">
+                        <h3>Daily Goal</h3>
+                        <span class="goal-icon">🚶</span>
+                    </div>
+                    <div class="goal-progress">
+                        <div class="progress-label">
+                            <span>Steps</span>
+                            <span class="progress-value">6,400 / 8,000</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    <p class="goal-encouragement">You're almost there! Just a short walk away.</p>
+                </div>
+            </div>
+
+            <button class="fab" onclick="navigateTo('addReminderScreen')">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 5V19M5 12H19" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Add Reminder Screen -->
+        <div id="addReminderScreen" class="screen add-reminder-screen">
+            <div class="screen-header">
+                <button class="back-btn" onclick="navigateTo('dashboardScreen')">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    Back
+                </button>
+                <h2>Add Care Reminder</h2>
+            </div>
+
+            <div class="add-reminder-content">
+                <div class="voice-input-section">
+                    <button class="voice-input-btn" id="reminderVoiceBtn">
+                        <div class="mic-icon">
+                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                                <path d="M16 4V24M16 24C14 24 12 22 12 20V12C12 10 14 8 16 8C18 8 20 10 20 12V20C20 22 18 24 16 24Z" stroke="white" stroke-width="2"/>
+                            </svg>
+                        </div>
+                    </button>
+                    <p class="voice-label">Tap to speak</p>
+                    <p class="voice-example">"Remind me to take Aspirin at 8 AM daily"</p>
+                </div>
+
+                <div class="reminder-type-tabs">
+                    <button class="type-tab active" data-type="medicine">
+                        <span class="tab-icon">💊</span>
+                        Medicine
+                    </button>
+                    <button class="type-tab" data-type="appointment">
+                        <span class="tab-icon">📅</span>
+                        Appointment
+                    </button>
+                </div>
+
+                <form class="reminder-form" id="reminderForm">
+                    <div class="form-group">
+                        <label>REMINDER NAME</label>
+                        <input type="text" placeholder="e.g. Aspirin 100mg" class="form-input">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>WHAT TIME?</label>
+                            <div class="time-input-wrapper">
+                                <input type="time" value="08:00" class="form-input time-input">
+                                <span class="time-icon">🕐</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>REPEAT</label>
+                            <select class="form-input select-input">
+                                <option>Daily</option>
+                                <option>Every Other Day</option>
+                                <option>Weekly</option>
+                                <option>Monthly</option>
+                                <option>Custom</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>SELECT DATES</label>
+                        <button type="button" class="calendar-btn" onclick="openCalendar()">
+                            <span class="calendar-icon">📅</span>
+                            <span>Choose multiple dates</span>
+                        </button>
+                        <div id="selectedDates" class="selected-dates"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>NOTIFICATION TONE</label>
+                        <select class="form-input select-input">
+                            <option>Gentle Chime</option>
+                            <option>Classic Bell</option>
+                            <option>Soft Melody</option>
+                            <option>Urgent Alert</option>
+                        </select>
+                    </div>
+
+                    <div class="ai-insight">
+                        <div class="insight-icon">✨</div>
+                        <div class="insight-content">
+                            <h4>AI Insight</h4>
+                            <p>I'll remind you to take this with food, as Aspirin can sometimes cause stomach sensitivity.</p>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="save-reminder-btn">
+                        <span>✓</span> Save Reminder
+                    </button>
+                </form>
+
+                <div class="medicine-meta">
+                    <div class="meta-card">
+                        <div class="meta-icon">📦</div>
+                        <div class="meta-info">
+                            <p class="meta-label">INVENTORY</p>
+                            <p class="meta-value">14 doses remaining</p>
+                        </div>
+                    </div>
+                    <div class="meta-card">
+                        <div class="meta-icon">👨‍⚕️</div>
+                        <div class="meta-info">
+                            <p class="meta-label">LINKED TO</p>
+                            <p class="meta-value">Dr. Miller (Cardiology)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="help-text">Need help? Try saying "Help me add a medicine"</p>
+            </div>
+        </div>
+
+        <!-- Care Reminder Screen -->
+        <div id="careReminderScreen" class="screen care-reminder-screen">
+            <div class="screen-header">
+                <button class="back-btn" onclick="navigateTo('dashboardScreen')">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    Back
+                </button>
+                <h2>Care Reminders</h2>
+            </div>
+
+            <div class="care-reminder-content">
+                <div class="reminder-filters">
+                    <button class="filter-btn active">All</button>
+                    <button class="filter-btn">Today</button>
+                    <button class="filter-btn">Upcoming</button>
+                    <button class="filter-btn">Completed</button>
+                </div>
+
+                <div class="reminder-list">
+                    <div class="list-group">
+                        <h3 class="list-group-title">Today's Reminders</h3>
+                        <div class="reminder-item">
+                            <div class="reminder-check">
+                                <input type="checkbox" id="med1">
+                                <label for="med1"></label>
+                            </div>
+                            <div class="reminder-content">
+                                <h4>Lisinopril 10mg</h4>
+                                <p>8:00 AM • Blood Pressure</p>
+                            </div>
+                            <button class="edit-btn">✏️</button>
+                        </div>
+                        <div class="reminder-item">
+                            <div class="reminder-check">
+                                <input type="checkbox" id="med2">
+                                <label for="med2"></label>
+                            </div>
+                            <div class="reminder-content">
+                                <h4>Vitamin D3 2000 IU</h4>
+                                <p>12:00 PM • Daily Supplement</p>
+                            </div>
+                            <button class="edit-btn">✏️</button>
+                        </div>
+                    </div>
+
+                    <div class="list-group">
+                        <h3 class="list-group-title">Upcoming This Week</h3>
+                        <div class="reminder-item">
+                            <div class="reminder-check">
+                                <input type="checkbox" id="app1">
+                                <label for="app1"></label>
+                            </div>
+                            <div class="reminder-content">
+                                <h4>General Checkup - Dr. Smith</h4>
+                                <p>Thursday, Oct 24 • 2:30 PM</p>
+                            </div>
+                            <button class="edit-btn">✏️</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="fab" onclick="navigateTo('addReminderScreen')">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 5V19M5 12H19" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- AI Assistant Screen -->
+        <div id="aiAssistantScreen" class="screen ai-assistant-screen">
+            <div class="screen-header">
+                <button class="back-btn" onclick="navigateTo('dashboardScreen')">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    Back
+                </button>
+                <h2>CareAI Assistant</h2>
+            </div>
+
+            <div class="chat-container">
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message ai-message">
+                        <div class="message-avatar">🤖</div>
+                        <div class="message-bubble">
+                            <p>Hello! I'm your CareAI assistant. How can I help you today? You can ask me about:</p>
+                            <ul>
+                                <li>Medication side effects</li>
+                                <li>Symptom information</li>
+                                <li>Health guidance</li>
+                                <li>Emergency procedures</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="suggested-questions">
+                    <button class="suggestion-chip" onclick="sendMessage('What are the side effects of Lisinopril?')">
+                        What are side effects of my medication?
+                    </button>
+                    <button class="suggestion-chip" onclick="sendMessage('I have a headache, what should I do?')">
+                        I have a headache
+                    </button>
+                    <button class="suggestion-chip" onclick="sendMessage('When should I call 911?')">
+                        When should I call 911?
+                    </button>
+                </div>
+
+                <div class="chat-input-container">
+                    <button class="voice-chat-btn" id="voiceChatBtn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 2V18M12 18C10 18 8 16 8 14V8C8 6 10 4 12 4C14 4 16 6 16 8V14C16 16 14 18 12 18Z" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </button>
+                    <input type="text" class="chat-input" id="chatInput" placeholder="Ask me anything about your health...">
+                    <button class="send-btn" id="sendBtn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 8L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Screen -->
+        <div id="settingsScreen" class="screen settings-screen">
+            <div class="screen-header">
+                <button class="back-btn" onclick="navigateTo('dashboardScreen')">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    Back
+                </button>
+                <h2>Settings</h2>
+            </div>
+
+            <div class="settings-content">
+                <div class="settings-group">
+                    <h3>Profile</h3>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-icon">👤</div>
+                            <div>
+                                <h4>Personal Information</h4>
+                                <p>Name, age, medical history</p>
+                            </div>
+                        </div>
+                        <button class="arrow-btn">›</button>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-icon">🏥</div>
+                            <div>
+                                <h4>Medical Records</h4>
+                                <p>View and manage records</p>
+                            </div>
+                        </div>
+                        <button class="arrow-btn">›</button>
+                    </div>
+                </div>
+
+                <div class="settings-group">
+                    <h3>Notifications</h3>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-icon">🔔</div>
+                            <div>
+                                <h4>Medication Reminders</h4>
+                                <p>Enabled</p>
+                            </div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-icon">📅</div>
+                            <div>
+                                <h4>Appointment Reminders</h4>
+                                <p>Enabled</p>
+                            </div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-icon">🔊</div>
+                            <div>
+                                <h4>Sound & Vibration</h4>
+                                <p>Customize notification sounds</p>
+                            </div>
+                        </div>
+                        <button class="arrow-btn">›</button>
+                    </div>
+                </div>
+
+                <div class="settings-group">
+                    <h3>Emergency</h3>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-icon">📞</div>
+                            <div>
+                                <h4>Emergency Contacts</h4>
+                                <p>Add family and friends</p>
+                            </div>
+                        </div>
+                        <button class="arrow-btn">›</button>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-icon">📍</div>
+                            <div>
+                                <h4>Location Services</h4>
+                                <p>For emergency assistance</p>
+                            </div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="settings-group">
+                    <h3>Accessibility</h3>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-icon">🗣️</div>
+                            <div>
+                                <h4>Voice Commands</h4>
+                                <p>Control app with voice</p>
+                            </div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-icon">🔤</div>
+                            <div>
+                                <h4>Text Size</h4>
+                                <p>Large</p>
+                            </div>
+                        </div>
+                        <button class="arrow-btn">›</button>
+                    </div>
+                </div>
+
+                <div class="settings-group">
+                    <h3>About</h3>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-icon">ℹ️</div>
+                            <div>
+                                <h4>Version</h4>
+                                <p>FirstAid AI v1.0.0</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-icon">📄</div>
+                            <div>
+                                <h4>Privacy Policy</h4>
+                            </div>
+                        </div>
+                        <button class="arrow-btn">›</button>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-icon">📋</div>
+                            <div>
+                                <h4>Terms of Service</h4>
+                            </div>
+                        </div>
+                        <button class="arrow-btn">›</button>
+                    </div>
+                </div>
+
+                <button class="logout-btn">
+                    <span>🚪</span> Logout
+                </button>
+            </div>
+        </div>
+
+        <!-- Calendar Modal -->
+        <div id="calendarModal" class="modal">
+            <div class="modal-content calendar-modal-content">
+                <div class="modal-header">
+                    <h3>Select Dates</h3>
+                    <button class="close-modal" onclick="closeCalendar()">×</button>
+                </div>
+                <div class="calendar" id="calendar"></div>
+                <div class="modal-actions">
+                    <button class="cancel-btn" onclick="closeCalendar()">Cancel</button>
+                    <button class="confirm-btn" onclick="confirmDates()">Confirm Dates</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
